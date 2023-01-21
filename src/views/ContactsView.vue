@@ -1,4 +1,5 @@
 <template lang="">
+    <router-link to="/new-contact">New Contact</router-link>
     <div v-for="contact in contacts" :key="contact.name">
         <div class="contact">
             <span>{{ contact.name }}</span>
@@ -19,8 +20,9 @@ export default {
 	},
     methods: {
 		call(contact) {
-			this.$store.commit('call', contact)
-		}
+			this.$store.commit('call', contact.name,contact.phone)
+		},
+        
     }
 }
 </script>

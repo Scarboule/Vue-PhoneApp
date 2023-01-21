@@ -1,6 +1,10 @@
 <template lang="">
     <div class="container">
-        <input ref="phoneInput" type="text">
+        <div class="screen">
+            <input ref="phoneInput" type="text">
+            <button @click="call()">Call</button>
+        </div>
+        
         
         <div ref="contact">{{ checkedContact }}</div>
         <div class="keyboard">
@@ -13,7 +17,9 @@
             <button @click="addInput('7')" class="key__button">7</button>
             <button @click="addInput('8')" class="key__button">8</button>
             <button @click="addInput('9')" class="key__button">9</button>
-            <button @click="addInput('0')" class="zero key__button">0</button>
+            <button @click="clear()" class="key__button">Clear</button>
+            <button @click="addInput('0')" class=" key__button">0</button>
+            <button @click="removeInput()" class="key__button">Suppr</button>
         </div>
     </div>
 </template>
@@ -31,12 +37,33 @@ export default {
         }
     },
     methods:{
+        clear(){
+            this.$refs.phoneInput.value = ""
+            this.$store.commit('contactCheck', "")
+        },
+        removeInput(){
+            let inputValue = this.$refs.phoneInput.value
+            let newInputValue = ""
+            let i=0
+            while(i < inputValue.length -1){
+                newInputValue += inputValue[i]
+                i++
+            }
+            this.$refs.phoneInput.value = newInputValue
+            this.$store.commit('contactCheck', newInputValue)
+        },
+
         addInput(input){
             let inputValue = this.$refs.phoneInput.value += input
-            if(inputValue.length === 10){
+            //if(inputValue.length === 10){
                 this.$store.commit('contactCheck', inputValue)
-            }
+            //}
         },
+
+		call() {
+            let inputValue = this.$refs.phoneInput.value
+            this.$store.commit('callFromNum', inputValue)
+		}
         
     }
 }
@@ -47,6 +74,11 @@ export default {
         flex-direction: column;
         justify-content: center;
         align-items: center;
+    }
+    .screen{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
     .keyboard{
         display: grid;

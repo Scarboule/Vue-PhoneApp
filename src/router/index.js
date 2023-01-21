@@ -3,12 +3,18 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 import ContactsView from '../views/ContactsView.vue'
 import HistoryView from '../views/HistoryView.vue'
 import CallView from '../views/CallView.vue'
+import NewContactView from '../views/NewContactView.vue'
 
 const routes = [
   {
     path: '/contacts',
     name: 'contacts',
     component: ContactsView
+  },
+  {
+    path: '/new-contact',
+    name: 'new-contact',
+    component: NewContactView
   },
   {
     path: '/history',
